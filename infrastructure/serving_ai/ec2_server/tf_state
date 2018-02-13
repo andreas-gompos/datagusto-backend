@@ -1,0 +1,289 @@
+{
+    "version": 3,
+    "terraform_version": "0.11.3",
+    "serial": 14,
+    "lineage": "d609b7f6-6fa1-4c99-8821-44b26d5d2a39",
+    "modules": [
+        {
+            "path": [
+                "root"
+            ],
+            "outputs": {},
+            "resources": {
+                "aws_eip.serving_ai_eip": {
+                    "type": "aws_eip",
+                    "depends_on": [
+                        "aws_instance.ec2_server"
+                    ],
+                    "primary": {
+                        "id": "eipalloc-a0650496",
+                        "attributes": {
+                            "association_id": "eipassoc-2e4c0797",
+                            "domain": "vpc",
+                            "id": "eipalloc-a0650496",
+                            "instance": "i-044731e790e5bdd8a",
+                            "network_interface": "eni-23e3fdee",
+                            "private_ip": "10.0.1.101",
+                            "public_ip": "52.0.108.195",
+                            "tags.%": "1",
+                            "tags.Name": "serving_ai_eip",
+                            "vpc": "true"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_instance.ec2_server": {
+                    "type": "aws_instance",
+                    "depends_on": [
+                        "aws_security_group.serving_ai_sg",
+                        "aws_subnet.serving_ai_subnet"
+                    ],
+                    "primary": {
+                        "id": "i-044731e790e5bdd8a",
+                        "attributes": {
+                            "ami": "ami-66506c1c",
+                            "associate_public_ip_address": "true",
+                            "availability_zone": "us-east-1a",
+                            "disable_api_termination": "false",
+                            "ebs_block_device.#": "0",
+                            "ebs_optimized": "false",
+                            "ephemeral_block_device.#": "0",
+                            "iam_instance_profile": "",
+                            "id": "i-044731e790e5bdd8a",
+                            "instance_state": "running",
+                            "instance_type": "t2.micro",
+                            "ipv6_addresses.#": "0",
+                            "key_name": "serving_ai",
+                            "monitoring": "false",
+                            "network_interface.#": "0",
+                            "network_interface_id": "eni-23e3fdee",
+                            "placement_group": "",
+                            "primary_network_interface_id": "eni-23e3fdee",
+                            "private_dns": "ip-10-0-1-101.ec2.internal",
+                            "private_ip": "10.0.1.101",
+                            "public_dns": "ec2-35-153-92-164.compute-1.amazonaws.com",
+                            "public_ip": "35.153.92.164",
+                            "root_block_device.#": "1",
+                            "root_block_device.0.delete_on_termination": "true",
+                            "root_block_device.0.iops": "100",
+                            "root_block_device.0.volume_id": "vol-055ca2f32e341bef0",
+                            "root_block_device.0.volume_size": "8",
+                            "root_block_device.0.volume_type": "gp2",
+                            "security_groups.#": "0",
+                            "source_dest_check": "true",
+                            "subnet_id": "subnet-8e1a55a1",
+                            "tags.%": "1",
+                            "tags.Name": "serving_ai_server",
+                            "tenancy": "default",
+                            "volume_tags.%": "0",
+                            "vpc_security_group_ids.#": "1",
+                            "vpc_security_group_ids.664950568": "sg-f7e2a780"
+                        },
+                        "meta": {
+                            "e2bfb730-ecaa-11e6-8f88-34363bc7c4c0": {
+                                "create": 600000000000,
+                                "delete": 600000000000,
+                                "update": 600000000000
+                            },
+                            "schema_version": "1"
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_internet_gateway.serving_ai_gw": {
+                    "type": "aws_internet_gateway",
+                    "depends_on": [
+                        "aws_vpc.serving_ai_vpc"
+                    ],
+                    "primary": {
+                        "id": "igw-ca3fdcb2",
+                        "attributes": {
+                            "id": "igw-ca3fdcb2",
+                            "tags.%": "1",
+                            "tags.Name": "serving_ai_gw",
+                            "vpc_id": "vpc-d92bd0a2"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_route_table.serving_ai_route_table_public": {
+                    "type": "aws_route_table",
+                    "depends_on": [
+                        "aws_internet_gateway.serving_ai_gw",
+                        "aws_vpc.serving_ai_vpc"
+                    ],
+                    "primary": {
+                        "id": "rtb-afe706d3",
+                        "attributes": {
+                            "id": "rtb-afe706d3",
+                            "propagating_vgws.#": "0",
+                            "route.#": "1",
+                            "route.1926119354.cidr_block": "0.0.0.0/0",
+                            "route.1926119354.egress_only_gateway_id": "",
+                            "route.1926119354.gateway_id": "igw-ca3fdcb2",
+                            "route.1926119354.instance_id": "",
+                            "route.1926119354.ipv6_cidr_block": "",
+                            "route.1926119354.nat_gateway_id": "",
+                            "route.1926119354.network_interface_id": "",
+                            "route.1926119354.vpc_peering_connection_id": "",
+                            "tags.%": "1",
+                            "tags.Name": "serving_ai_route_table_public",
+                            "vpc_id": "vpc-d92bd0a2"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_route_table_association.serving_ai_route_table_association_public": {
+                    "type": "aws_route_table_association",
+                    "depends_on": [
+                        "aws_route_table.serving_ai_route_table_public",
+                        "aws_subnet.serving_ai_subnet"
+                    ],
+                    "primary": {
+                        "id": "rtbassoc-61aada1d",
+                        "attributes": {
+                            "id": "rtbassoc-61aada1d",
+                            "route_table_id": "rtb-afe706d3",
+                            "subnet_id": "subnet-8e1a55a1"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_security_group.serving_ai_sg": {
+                    "type": "aws_security_group",
+                    "depends_on": [
+                        "aws_vpc.serving_ai_vpc"
+                    ],
+                    "primary": {
+                        "id": "sg-f7e2a780",
+                        "attributes": {
+                            "description": "security group for serving_ai server",
+                            "egress.#": "1",
+                            "egress.482069346.cidr_blocks.#": "1",
+                            "egress.482069346.cidr_blocks.0": "0.0.0.0/0",
+                            "egress.482069346.description": "",
+                            "egress.482069346.from_port": "0",
+                            "egress.482069346.ipv6_cidr_blocks.#": "0",
+                            "egress.482069346.prefix_list_ids.#": "0",
+                            "egress.482069346.protocol": "-1",
+                            "egress.482069346.security_groups.#": "0",
+                            "egress.482069346.self": "false",
+                            "egress.482069346.to_port": "0",
+                            "id": "sg-f7e2a780",
+                            "ingress.#": "3",
+                            "ingress.2214680975.cidr_blocks.#": "1",
+                            "ingress.2214680975.cidr_blocks.0": "0.0.0.0/0",
+                            "ingress.2214680975.description": "",
+                            "ingress.2214680975.from_port": "80",
+                            "ingress.2214680975.ipv6_cidr_blocks.#": "0",
+                            "ingress.2214680975.protocol": "tcp",
+                            "ingress.2214680975.security_groups.#": "0",
+                            "ingress.2214680975.self": "false",
+                            "ingress.2214680975.to_port": "80",
+                            "ingress.2541437006.cidr_blocks.#": "1",
+                            "ingress.2541437006.cidr_blocks.0": "0.0.0.0/0",
+                            "ingress.2541437006.description": "",
+                            "ingress.2541437006.from_port": "22",
+                            "ingress.2541437006.ipv6_cidr_blocks.#": "0",
+                            "ingress.2541437006.protocol": "tcp",
+                            "ingress.2541437006.security_groups.#": "0",
+                            "ingress.2541437006.self": "false",
+                            "ingress.2541437006.to_port": "22",
+                            "ingress.516175195.cidr_blocks.#": "1",
+                            "ingress.516175195.cidr_blocks.0": "0.0.0.0/0",
+                            "ingress.516175195.description": "",
+                            "ingress.516175195.from_port": "8080",
+                            "ingress.516175195.ipv6_cidr_blocks.#": "0",
+                            "ingress.516175195.protocol": "tcp",
+                            "ingress.516175195.security_groups.#": "0",
+                            "ingress.516175195.self": "false",
+                            "ingress.516175195.to_port": "8080",
+                            "name": "serving_ai_sg",
+                            "owner_id": "086987898798",
+                            "revoke_rules_on_delete": "false",
+                            "tags.%": "1",
+                            "tags.Name": "serving_ai_sg",
+                            "vpc_id": "vpc-d92bd0a2"
+                        },
+                        "meta": {
+                            "schema_version": "1"
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_subnet.serving_ai_subnet": {
+                    "type": "aws_subnet",
+                    "depends_on": [
+                        "aws_vpc.serving_ai_vpc"
+                    ],
+                    "primary": {
+                        "id": "subnet-8e1a55a1",
+                        "attributes": {
+                            "assign_ipv6_address_on_creation": "false",
+                            "availability_zone": "us-east-1a",
+                            "cidr_block": "10.0.1.0/24",
+                            "id": "subnet-8e1a55a1",
+                            "map_public_ip_on_launch": "true",
+                            "tags.%": "1",
+                            "tags.Name": "serving_ai_subnet",
+                            "vpc_id": "vpc-d92bd0a2"
+                        },
+                        "meta": {
+                            "schema_version": "1"
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_vpc.serving_ai_vpc": {
+                    "type": "aws_vpc",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "vpc-d92bd0a2",
+                        "attributes": {
+                            "assign_generated_ipv6_cidr_block": "false",
+                            "cidr_block": "10.0.0.0/16",
+                            "default_network_acl_id": "acl-4c92d937",
+                            "default_route_table_id": "rtb-969c7dea",
+                            "default_security_group_id": "sg-38eda84f",
+                            "dhcp_options_id": "dopt-d154baa9",
+                            "enable_classiclink": "false",
+                            "enable_classiclink_dns_support": "false",
+                            "enable_dns_hostnames": "true",
+                            "enable_dns_support": "true",
+                            "id": "vpc-d92bd0a2",
+                            "instance_tenancy": "default",
+                            "main_route_table_id": "rtb-969c7dea",
+                            "tags.%": "1",
+                            "tags.Name": "serving_ai_vpc"
+                        },
+                        "meta": {
+                            "schema_version": "1"
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                }
+            },
+            "depends_on": []
+        }
+    ]
+}

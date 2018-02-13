@@ -1,0 +1,2 @@
+---
+- import_playbook: serving_ai_server.yml
