@@ -9,3 +9,7 @@ variable "PATH_TO_PRIVATE_KEY" {
 variable "AWS_PROFILE" {
   default = "default"
 }
+
+variable "INSTANCE_USERNAME" {
+  default = "ubuntu"
+}
