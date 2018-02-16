@@ -1,4 +1,5 @@
 ---
 - hosts: remote_servers
   roles:
-    - docker_provisioning
+    - mount_ebs
+    - docker

@@ -1,2 +1,75 @@
 ---
-# tasks file for roles/docker
+#- name: update all system packages to the latest version
+#  become: true
+#  apt:
+#    upgrade: dist
+#    update_cache: yes
+
+- name: uninstall older versions of Docker
+  become: true
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker.io
+    state: absent
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
+
+- name: installing apt packages required for Docker
+  become: true
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: latest
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
+
+- name: adding Docker’s official GPG key
+  become: true
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+- name: setting up the stable Docker repository
+  become: true
+  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+- name: installing Docker CE
+  become: true
+  apt:
+    name:
+      - docker-ce
+    state: latest
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
+
+- name: create a docker group
+  become: true
+  group:
+    name: docker
+    state: present    
+       
+- name: add user to the docker group
+  become: true
+  shell: usermod -aG docker ubuntu
+       
+- name: starting docker at boot
+  become: true
+  systemd: 
+    state: started 
+    name: docker
+    daemon_reload: yes
+    enabled: yes
+
+- name: installing docker machine
+  become: true
+  shell: curl -L https://github.com/docker/machine/releases/download/v0.13.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine && install /tmp/docker-machine /usr/local/bin/docker-machine
+
+- name: installing docker compose
+  become: true
+  shell: curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose  && chmod +x /usr/local/bin/docker-compose

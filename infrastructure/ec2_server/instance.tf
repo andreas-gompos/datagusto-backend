@@ -27,14 +27,12 @@ resource "aws_volume_attachment" "serving_ai_ebs_attachment" {
   volume_id   = "${data.terraform_remote_state.server_ai_tf_state.serving_ai_ebs_id}" 
   instance_id = "${aws_instance.ec2_server.id}"
 
-  provisioner "remote-exec" {
-  inline = [
-    "sudo mkfs -t ext4 /dev/xvdh",
-    "sudo mkdir /data",
-    "sudo mount /dev/xvdh /data",
-    "sudo chmod -R 777 /data",
-  ]
-}
+
+    provisioner "local-exec" {
+      command = <<EOF
+sleep 15 && cd ../../provisioning && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml -i inventory
+EOF
+    }
 
   connection {
     host        = "${data.terraform_remote_state.server_ai_tf_state.server_ai_eip_public_ip}"

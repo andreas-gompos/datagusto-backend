@@ -1,0 +1,20 @@
+---
+- name: make filesystem for the new block device
+  become: true
+  filesystem:
+    fstype: ext4
+    dev: /dev/{{ blk_device_name }}
+
+- name: creating directory in block device
+  become: true
+  file: 
+    path: /data
+    state: directory
+
+- name: mounting new directory in block device
+  become: true
+  mount: 
+    path: /data/
+    src: /dev/{{ blk_device_name }}
+    fstype: ext4
+    state: mounted
