@@ -10,6 +10,7 @@
   file: 
     path: /data
     state: directory
+    mode: 0777
 
 - name: mounting new directory in block device
   become: true

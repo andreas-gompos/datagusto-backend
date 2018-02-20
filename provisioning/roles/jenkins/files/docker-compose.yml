@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+   jenkins-service:
+     build: ./jenkins
+     volumes:
+       - "/data/jenkins:/var/jenkins_home"
+     restart: always
+     ports:
+      - 8080:8080
+      - 50000:50000
+     image: jenkins_image
+     container_name: jenkins_service
