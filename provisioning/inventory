@@ -2,4 +2,4 @@
 local_machine ansible_connection=local
 
 [remote_servers]
-serving_ai_server ansible_host=35.172.42.102
+serving_ai_server ansible_host=www.datagusto.com
