@@ -14,4 +14,4 @@
 
 - name: start jenkins service
   become: false
-  shell: cd /tmp/jenkins && docker-compose up -d
+  shell: cd /tmp/jenkins && docker-compose up -d --build

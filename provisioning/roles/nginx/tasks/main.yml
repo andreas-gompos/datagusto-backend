@@ -1,0 +1,10 @@
+---
+- name: uploading docker files for nginx
+  become: false
+  copy:
+    src: .
+    dest: /tmp/nginx/
+
+- name: start nginx service
+  become: false
+  shell: cd /tmp/nginx && docker-compose up -d --build
