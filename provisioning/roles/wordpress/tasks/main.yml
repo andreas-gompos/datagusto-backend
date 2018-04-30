@@ -1,0 +1,17 @@
+---
+- name: creating wordpress directory
+  become: true
+  file: 
+    path: /data/wordpress
+    state: directory
+    mode: 0777
+
+- name: uploading docker files for wordpress
+  become: false
+  copy:
+    src: .
+    dest: /tmp/wordpress/
+
+- name: start wordpress service
+  become: false
+  shell: cd /tmp/wordpress && docker-compose up -d --build
