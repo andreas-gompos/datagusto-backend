@@ -1,7 +1,8 @@
 ---
 - hosts: remote_servers
   roles:
-    - mount_ebs
-    - docker
+    #- mount_ebs
+    #- docker
     - nginx
     - jenkins
+    - wordpress
