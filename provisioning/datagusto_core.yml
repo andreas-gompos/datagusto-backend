@@ -4,5 +4,3 @@
     - mount_ebs
     - docker
     - nginx
-    - jenkins
-    - wordpress
