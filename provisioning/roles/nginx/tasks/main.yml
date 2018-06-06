@@ -7,4 +7,6 @@
 
 - name: start nginx service
   become: false
-  shell: cd /tmp/nginx && docker-compose up -d --build
+  command: docker-compose up -d --build
+  args:
+    chdir: /tmp/nginx

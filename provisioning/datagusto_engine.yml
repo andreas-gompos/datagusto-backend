@@ -1,5 +1,5 @@
 ---
 - hosts: remote_servers
   roles:
-    - 
-
+    - nginx
+    - flask_app
