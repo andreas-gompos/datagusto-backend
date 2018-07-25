@@ -39,4 +39,10 @@ resource "aws_route53_record" "subdomain_engine" {
   records = ["${aws_eip.serving_ai_eip.public_ip}"]
 }
 
-
+resource "aws_route53_record" "subdomain_models" {
+  zone_id = "${aws_route53_zone.datagusto.zone_id}"
+  name    = "topic_classification.models.datagusto.com"
+  type    = "A"
+  ttl     = "300"
+  records = ["${aws_eip.serving_ai_eip.public_ip}"]
+}
