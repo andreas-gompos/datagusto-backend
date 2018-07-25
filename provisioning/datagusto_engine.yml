@@ -2,4 +2,4 @@
 - hosts: remote_servers
   roles:
     - nginx
-    - flask_app
+    - topic_classification_app
