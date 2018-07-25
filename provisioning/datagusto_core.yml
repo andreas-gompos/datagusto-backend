@@ -3,5 +3,3 @@
   roles:
     - mount_ebs
     - docker
-    - nginx
-    - jenkins

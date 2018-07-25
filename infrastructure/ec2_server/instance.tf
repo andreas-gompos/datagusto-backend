@@ -27,13 +27,6 @@ resource "aws_volume_attachment" "serving_ai_ebs_attachment" {
   volume_id   = "${data.terraform_remote_state.server_ai_tf_state.serving_ai_ebs_id}" 
   instance_id = "${aws_instance.ec2_server.id}"
 
-
-    provisioner "local-exec" {
-      command = <<EOF
-sleep 15 && cd ../../provisioning && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml -i inventory
-EOF
-    }
-
   connection {
     host        = "${data.terraform_remote_state.server_ai_tf_state.server_ai_eip_public_ip}"
     user        = "${var.INSTANCE_USERNAME}"

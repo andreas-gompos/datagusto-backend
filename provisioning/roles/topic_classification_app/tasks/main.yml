@@ -1,0 +1,9 @@
+---
+- name: stop topic_classification_app
+  shell: docker stop topic_classification_app || true 
+
+- name: pull topic_classification_app
+  shell: docker pull datagusto/topic_classification_app
+
+- name: run topic_classification_app container
+  shell: docker container run -p 5000:5000 -d --network=nginx_network --rm --name topic_classification_app datagusto/topic_classification_app

@@ -1,2 +1,3 @@
 ---
-- import_playbook: serving_ai_server.yml
+- import_playbook: datagusto_core.yml
+- import_playbook: datagusto_engine.yml
