@@ -41,3 +41,13 @@ resource "aws_s3_bucket" "www_datagusto_com" {
     Name        = "datagusto bucket"
   }
 }
+
+resource "aws_s3_bucket" "datagusto" {
+  provider = "aws.london"
+  bucket = "datagusto"
+  region = "eu-west-2"
+
+  tags {
+    Name        = "datagusto bucket"
+  }
+}
