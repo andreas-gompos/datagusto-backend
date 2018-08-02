@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  nginx-service:
+    build: ./nginx
+    restart: always
+    ports:
+     - 80:80
+    image: nginx_image
+    container_name: nginx_service
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  topic-classification-app:
+    restart: always
+    image: datagusto/topic_classification_app
+    container_name: topic_classification_app
+    depends_on:
+      - "nginx-service"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"

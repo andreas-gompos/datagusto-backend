@@ -1,0 +1,12 @@
+---
+- name: uploading files for deployment
+  become: false
+  copy:
+    src: .
+    dest: /tmp/deploy/
+
+- name: docker-compose up
+  become: false
+  command: docker-compose up -d --build
+  args:
+    chdir: /tmp/deploy

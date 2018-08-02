@@ -1,5 +1,0 @@
----
-- hosts: remote_servers
-  roles:
-    - nginx
-    - topic_classification_app
